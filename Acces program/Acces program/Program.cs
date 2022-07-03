@@ -33,6 +33,9 @@ namespace Acces_program
 
                     Console.Write("Please enter password again :");
                     string password2 = Console.ReadLine();
+
+                    UserRegister person = AddUser(name, surName, email, password1, password2);
+                    Console.WriteLine(person);
                 }
                 else if (command == "/login")
                 {
@@ -40,6 +43,9 @@ namespace Acces_program
                     string email = Console.ReadLine();
                     Console.Write("Enter your password :");
                     string password = Console.ReadLine();
+
+                    UserLoginValidator person = GetLogin(persons, email, password);
+                    Console.WriteLine(person);
                 }
                 else if (command == "/exit")
                 {
@@ -52,6 +58,48 @@ namespace Acces_program
                     Console.WriteLine();
                 }
             }
+        }
+        public static bool IsEmailUnical(string email)
+        {
+
+            for (int i = 0; i < persons.Count; i++)
+            {
+                if (persons[i].Email == email)
+                {
+                    Console.WriteLine("Email adress not available");
+                    return false;
+                }
+
+            }
+            return true;
+        }
+
+        public static UserLoginValidator GetLogin(List<UserRegister> persons, string emailName, string password)
+
+        {
+
+            UserLoginValidator person = new UserLoginValidator(emailName, password);
+            if (UserLoginValidator.IsLoginEmailTrue(persons, emailName) & UserLoginValidator.IsLoginPasswordTrue(persons, password))
+            {
+                Console.WriteLine($"Welcome to your account ");
+            }
+            else { Console.WriteLine("Email or Password not found"); }
+            return person;
+        }
+
+        public static UserRegister AddUser(string name, string surName, string email, string password1, string password2)
+        {
+            UserRegister person = new UserRegister(name, surName, email, password1, password2);
+            if (UserValidator.IsAllInformationsTrue(name, surName, email, password1, password2) && IsEmailUnical(email))
+            {
+                persons.Add(person);
+                Console.WriteLine("You successfully registered, now you can login with your new account!");
+            }
+            else
+            {
+                Console.WriteLine("User not added try again");
+            }
+            return person;
         }
     }
     class UserRegister
