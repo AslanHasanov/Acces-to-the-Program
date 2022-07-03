@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Acces_program
 {
     internal class Program
     {
-
+        public static List<UserRegister> persons { get; set; } = new List<UserRegister>();
         static void Main(string[] args)
         {
             Console.WriteLine("/register");
@@ -137,5 +138,44 @@ namespace Acces_program
             }
         }
 
+    }
+    class UserLoginValidator
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+
+        public UserLoginValidator(string email, string password)
+        {
+            Email = email;
+            Password = password;
+        }
+
+
+        public static bool IsLoginEmailTrue(List<UserRegister> persons, string email)
+        {
+
+            foreach (UserRegister person in persons)
+            {
+                if (person.Email == email)
+                {
+                    return true;
+                }
+            }
+            Console.WriteLine("Email not specified");
+            return false;
+
+        }
+        public static bool IsLoginPasswordTrue(List<UserRegister> persons, string password)
+        {
+            foreach (UserRegister person in persons)
+            {
+                if (person.Password == password)
+                {
+                    return true;
+                }
+            }
+            Console.WriteLine("Password not specified");
+            return false;
+        }
     }
 }
