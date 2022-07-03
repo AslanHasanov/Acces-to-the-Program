@@ -69,4 +69,73 @@ namespace Acces_program
         }
 
     }
+    class UserValidator : UserRegister
+    {
+        public UserValidator(string name, string surName, string email, string password1, string password2)
+            : base(name, surName, email, password1, password2)
+        {
+
+        }
+
+        public static bool IsAllInformationsTrue(string name, string surName, string email, string password1, string password2)
+        {
+            if (IsNameTrue(name) & IsSurnameTrue(surName) & IsEmailTrue(email) & IsPasswordTrue(password1, password2))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public static bool IsNameTrue(string name)
+        {
+            if (name.Length >= 3 && name.Length <= 30)
+            {
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Name length is false");
+                return false;
+            }
+        }
+        public static bool IsSurnameTrue(string surName)
+        {
+            if (surName.Length >= 5 && surName.Length <= 20)
+            {
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Surname length is false");
+                return false;
+            }
+        }
+        public static bool IsEmailTrue(string email)
+        {
+            for (int i = 0; i < email.Length; i++)
+            {
+                char character = '@';
+                if (email[i] == character)
+                {
+                    return true;
+
+                }
+            }
+            Console.WriteLine("Email format is false");
+            return false;
+        }
+        public static bool IsPasswordTrue(string password1, string password2)
+        {
+            if (password1 == password2)
+            {
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Entered password is false");
+                return false;
+            }
+        }
+
+    }
 }
